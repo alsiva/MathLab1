@@ -142,6 +142,28 @@ public class Matrix {
         return diagonal;
     }
 
+    //Возвращает копию матрицы
+    public Matrix copy() {
+        Matrix matrix = new Matrix(row, column);
+        double[][] elements = matrix.getAsArray();
+
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < column; ++j) {
+                elements[i][j] = this.elements[i][j];
+            }
+        }
+
+        return matrix;
+    }
+
+    public int getRowDimention() {
+        return this.row;
+    }
+
+    public int getColumnDimention() {
+        return this.column;
+    }
+
     //Возвращает матрицу как двуммерный массив
     public double[][] getAsArray() {
         return this.elements;
