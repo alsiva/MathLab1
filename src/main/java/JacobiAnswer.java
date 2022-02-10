@@ -26,7 +26,7 @@ public class JacobiAnswer {
     }
 
     private String pattern(double i, double roots, double errors) {
-        return String.format("│ %02.0f │ % -20." + 10 + "f │ % -20.16f │%n", i, roots, errors);
+        return String.format("│ %.16f │ %.16f │ %.16f │%n", i, roots, errors);
     }
 
     @Override
