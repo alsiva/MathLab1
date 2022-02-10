@@ -62,6 +62,21 @@ public class Matrix {
         return matrix;
     }
 
+    public Matrix subMatrix(int[] rowIndices, int j0, int j1) {
+        Matrix matrix = new Matrix(rowIndices.length, j1 - j0 + 1);
+        double[][] elements = matrix.getAsArray();
+        try {
+            for (int i = 0; i < rowIndices.length; ++i) {
+                for (int j = j0; j <= j1; ++j) {
+                    elements[i][j-j0] = this.elements[rowIndices[i]][j];
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ArrayIndexOutOfBoundsException("Индексы подматрицы выходят за границы");
+        }
+        return matrix;
+    }
+
     //Получить элемент матрицы
     public double get(int i, int j) {
         return this.elements[i][j];
@@ -142,6 +157,22 @@ public class Matrix {
         return diagonal;
     }
 
+    public Matrix div(double[] divisor) {
+        if (divisor.length != row) {
+            throw new IllegalArgumentException("Кол-во строк != кол-во элементов делителя");
+        }
+        Matrix matrix = new Matrix(row, column);
+        double[][] elements = matrix.getAsArray();
+
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < column; ++j) {
+                elements[i][j] = this.elements[i][j] / divisor[i];
+            }
+        }
+
+        return matrix;
+    }
+
     //Возвращает копию матрицы
     public Matrix copy() {
         Matrix matrix = new Matrix(row, column);
@@ -167,6 +198,18 @@ public class Matrix {
     //Возвращает матрицу как двуммерный массив
     public double[][] getAsArray() {
         return this.elements;
+    }
+
+    //Возвращает единичную матрицу
+    public static Matrix identity(int size) {
+        Matrix matrix = new Matrix(size, size);
+        double[][] elements = matrix.getAsArray();
+
+        for (int i = 0; i < size; ++i) {
+            elements[i][i] = 1;
+        }
+
+        return matrix;
     }
 
 }

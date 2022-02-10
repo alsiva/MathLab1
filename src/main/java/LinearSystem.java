@@ -47,6 +47,23 @@ public class LinearSystem {
         }
         return rowsIndices;
     }
+
+    //Осуществлявет перестановку строк чтобы получить диагонально доминантную матрицу
+    public void doRowPermutation(int[] rowIndices) {
+        if (rowIndices.length != size) {
+            throw new IllegalArgumentException("Кол-во строк расширенной матрицы != кол-ву индексов строк");
+        }
+        this.extendedMatrix = extendedMatrix.subMatrix(rowIndices, 0, size);
+    }
+
+    //Получает матрицу коэффициентов
+    public Matrix getMatrixCoefficients() {
+        return this.extendedMatrix.subMatrix(0, 0, size - 1, size - 1);
+    }
+
+    public Matrix getMatrixFreeMembers() {
+        return this.extendedMatrix.subMatrix(0, size, size - 1, size);
+    }
 }
 
 
