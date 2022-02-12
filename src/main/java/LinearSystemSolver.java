@@ -3,7 +3,7 @@ public class LinearSystemSolver {
     private final double defaultAccuracy;
 
     public LinearSystemSolver() {
-        this.defaultAccuracy = 1E-5; // 1/10000
+        this.defaultAccuracy = 1E-5; // 0.00001D
     }
 
     public LinearSystemSolver(double defaultAccuracy) {

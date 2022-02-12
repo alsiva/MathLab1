@@ -46,7 +46,7 @@ public class Matrix {
 
     //Получить подматрицу
     public Matrix subMatrix(int i0, int j0, int i1, int j1) {
-        Matrix matrix = new Matrix(i1 - i0 + j1, j1 - j0 + 1); //Создаём нулевую подматрицу
+        Matrix matrix = new Matrix(i1 - i0 + 1, j1 - j0 + 1); //Создаём нулевую подматрицу
         double[][] elements = matrix.getAsArray();
 
         try {
@@ -84,7 +84,7 @@ public class Matrix {
 
     //Возвращает наибольший по модулю элемент матрицы
     public double getAbsMax() {
-        double max = 0;
+        double max = 0D;
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < column; ++j) {
                 if (max < Math.abs(this.elements[i][j])) {
@@ -132,7 +132,7 @@ public class Matrix {
             throw new IllegalArgumentException("Матрицы должны иметь одинаковые измерения");
         }
         Matrix matrixSum = new Matrix(row, column);
-        double[][] elements = matrix.getAsArray();
+        double[][] elements = matrixSum.getAsArray();
 
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < column; ++j) {
@@ -206,7 +206,7 @@ public class Matrix {
         double[][] elements = matrix.getAsArray();
 
         for (int i = 0; i < size; ++i) {
-            elements[i][i] = 1;
+            elements[i][i] = 1D;
         }
 
         return matrix;

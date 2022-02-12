@@ -33,11 +33,11 @@ public class Application {
         String[] args;
 
         printf("+-------------------------------------------+%n" +
-                "| %sSIMPLE ITERATION METHOD (JACOBI'S METHOD) |%n" +
+                "| SIMPLE ITERATION METHOD (JACOBI'S METHOD) |%n" +
                 "+-------------------------------------------+%n");
 
         while (_RUNNING_) {
-            printf("simple-iteration-method$ ");
+            printf("simple-iteration-method ");
 
             args = in.nextLine().trim().split("(\\s++)");
 
@@ -67,12 +67,12 @@ public class Application {
         }
     }
 
-    private double accuracy;
+    private double accuracy = 0.0001D;
     private int size; // Размер линейного уравнения
     private double[][] elements;
 
 
-    //todo parseAccuracy
+
     private void parseAccuracy(String[] args) {
         try {
             if (args.length > 3) {
@@ -177,7 +177,7 @@ public class Application {
             for (int i = 0; i < size; ++i) {
                 indices[i] = i;
                 for (int j = 0; j < size + 1; ++j) {
-                    elements[i][j] = Math.random() * 10 - 5;
+                    elements[i][j] = Math.random() * 10D - 5D;
                     sums[i] += Math.abs(elements[i][j]);
                 }
                 sums[i] -= Math.abs(elements[i][size]);
@@ -187,7 +187,7 @@ public class Application {
             list.toArray(indices);
 
             for (int i = 0; i < size; ++i) {
-                elements[indices[i]][i] = sums[indices[i]] + Math.random() + 1;
+                elements[indices[i]][i] = sums[indices[i]] + Math.random() + 1.0;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             usage("matrix -g [int]");
