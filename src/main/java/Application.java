@@ -45,7 +45,8 @@ public class Application {
                     //todo parseHelp
                     break;
                 case "exit":
-                    //todo parseExit
+                    parseExit();
+                    break;
                 default:
                     //todo parseNothing
                     break;
@@ -226,6 +227,10 @@ public class Application {
         } else {
             printf("show: firstly enter a matrix%n");
         }
+    }
+
+    private void parseExit() {
+        this._RUNNING_ = false;
     }
 
 }
