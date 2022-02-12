@@ -82,6 +82,8 @@ public class Matrix {
         return this.elements[i][j];
     }
 
+    public void write(int i, int j, double value) {this.elements[i][j] = value;}
+
     //Возвращает наибольший по модулю элемент матрицы
     public double getAbsMax() {
         double max = 0D;
