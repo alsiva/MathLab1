@@ -42,7 +42,7 @@ public class Application {
                     parseShow(args);
                     break;
                 case "help":
-                    //todo parseHelp
+                    parseHelp();
                     break;
                 case "exit":
                     parseExit();
@@ -237,6 +237,28 @@ public class Application {
         if (!args[0].isEmpty()) {
             printf("%s: command not found%n", args[0]);
         }
+    }
+
+    private void parseHelp() {
+        printf("" +
+                " accuracy  =  [value]    Set an accuracy of the algebraic linear system of equations%n" +
+                "                         solver. Usage:                                             %n" +
+                "                           > accuracy = 0.0001D                                  (1)%n" +
+                "                           > accuracy = 1E-5                                     (2)%n" +
+                "                           > accuracy = 0.000134532234                           (3)%n" +
+                " matrix        [ ][ ]    Read a data of extended matrix of a algebraic linear system%n" +
+                "                         of equations from console.                                 %n" +
+                "         -f    [path]    Read a data from a file. Usage:                            %n" +
+                "         -g    [size]    Generate   a  new  diagonally   dominant  matrix   size  of%n" +
+                "                         M[size]x[size+1].                                          %n" +
+                " exit                    terminate the application.                                 %n" +
+                " solve                   Solve the last read algebraic linear system of equations by%n" +
+                "                         simple iteration method (Jacobi's method).                 %n" +
+                " show             [ ]    Show  an  accuracy  value  and  active  matrix  of  system.%n" +
+                "         -a [ccuracy]    Show only accuracy value. Example:                         %n" +
+                "         -m   [atrix]    Show only and only active matrix of system. Example        %n" +
+                " help                    display a help information on console.                     %n"
+        );
     }
 
 }
