@@ -26,22 +26,23 @@ public class JacobiAnswer {
     }
 
     private String pattern(double i, double roots, double errors) {
-        return String.format("│ %.16f │ %.16f │ %.16f │%n", i, roots, errors);
+        int $ = 17 - String.valueOf((int) this.roots.getAbsMax()).length();
+        return String.format("│ %02.0f │ % -20." + $ + "f │ % -20.16f │%n", i, roots, errors);
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("--------------------------------\n")
-                .append("№i | корень (x)   |  отклонение\n")
-                .append("-------------------------------\n");
+        builder.append("+————+——————————————————————+——————————————————————+\n")
+                .append("│ №i │  root (x)            │  infelicity (delta)  │\n")
+                .append("+————+——————————————————————+——————————————————————+\n");
 
         for (int i = 0; i < roots.getRowDimention(); ++i) {
-            builder.append(pattern(i+1, roots.get(i, 0), errors.get(i, 0)));
+            builder.append(pattern(i + 1, roots.get(i, 0), errors.get(i, 0)));
         }
-        builder.append("---------------------------------\n")
-                .append("Итераций ").append(iterations);
+        builder.append("+————+——————————————————————+——————————————————————+\n")
+                .append("> Iterations: ").append(iterations).append(" times.");
 
         return builder.toString();
     }
