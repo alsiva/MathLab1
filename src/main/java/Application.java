@@ -5,7 +5,20 @@ import java.util.*;
 public class Application {
 
     public static void main(String[] args) {
+        new Application().run();
+    }
 
+    private void error(String arg, int space) {
+        printf("error: " + (arg) + "%n");
+        printf((space) + "s%n", "^");
+    }
+
+    private void usage(String arg) {
+        printf("usage: " + (arg) + "%n");
+    }
+
+    private void warning(int args) {
+        printf("warning: allowed " + (args) + " argument(s)%n");
     }
 
     private void printf(String s, Object... objects) {
@@ -30,7 +43,7 @@ public class Application {
 
             switch (args[0].toLowerCase(Locale.ROOT)) {
                 case "accuracy":
-                    //todo parseAccuracy
+                    parseAccuracy(args);
                     break;
                 case "matrix":
                     parseMatrix(args, in);
@@ -61,7 +74,19 @@ public class Application {
 
     //todo parseAccuracy
     private void parseAccuracy(String[] args) {
-
+        try {
+            if (args.length > 3) {
+                warning(2);
+            } else if (args[1].equals("=")) {
+                accuracy = Double.parseDouble(args[2]);
+            } else {
+                error("accuracy = [double]", 17);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            usage("accuracy = [double]");
+        } catch (NumberFormatException e) {
+            error("accuracy = [double]", 22);
+        }
     }
 
     private void parseMatrix(String[] args, Scanner in) {
@@ -123,17 +148,17 @@ public class Application {
     private void parseMatrixF(String[] args) {
         try {
             if (args.length > 3) {
-                //todo warning
+                warning(2);
             } else if (args[1].equals("-f")) {
                 Scanner file = new Scanner(new File(args[2]));
                 parseMatrixC(file, true);
             } else if (args[1].equals("-g")) {
-                //todo parseMatrix generated
+                parseMatrixG(args);
             } else {
-                //todo error
+                error("matrix -f [path]", 16);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            //todo error
+            error("matrix -f [path]", 20);
         } catch (FileNotFoundException e) {
             printf("matrix: file not found%n");
         }
@@ -165,7 +190,7 @@ public class Application {
                 elements[indices[i]][i] = sums[indices[i]] + Math.random() + 1;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            //todo usage
+            usage("matrix -g [int]");
         } catch (NumberFormatException e) {
             printf("matrix: invalid format [size=int]%n");
         } catch (RuntimeException e) {
@@ -178,7 +203,7 @@ public class Application {
 
     private void parseSolve(String[] args) {
         if (args.length > 1) {
-            //todo warning
+            warning(0);
         } else if (elements != null) {
             Matrix matrix = new Matrix(elements, size, size + 1);
             LinearSystem linearSystem = new LinearSystem(matrix, size);
@@ -201,13 +226,14 @@ public class Application {
             parseShowA();
             parseShowM();
         } else if (args.length > 2) {
-            //todo warning
+            warning(1);
         } else if (args[1].equals("-a")) {
             parseShowA();
         } else if (args[1].equals("-m")) {
             parseShowM();
         } else {
-            //todo usage -a and -m
+            usage("show -a[ccuracy]");
+            usage("show -m[atrix]");
         }
     }
 
