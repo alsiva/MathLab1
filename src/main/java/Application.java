@@ -172,4 +172,27 @@ public class Application {
         }
     }
 
+
+    private final LinearSystemSolver solver = new LinearSystemSolver();
+
+    private void parseSolve(String[] args) {
+        if (args.length > 1) {
+            //todo warning
+        } else if (elements != null) {
+            Matrix matrix = new Matrix(elements, size, size + 1);
+            LinearSystem linearSystem = new LinearSystem(matrix, size);
+            JacobiAnswer answer;
+
+            try {
+                answer = solver.solveByJacobi(linearSystem, accuracy);
+                System.out.println(answer);
+            } catch (RuntimeException e) {
+                printf("%s%n", e.getMessage());
+            }
+
+        } else {
+            printf("solve: firstly enter a matrix%n");
+        }
+    }
+
 }
