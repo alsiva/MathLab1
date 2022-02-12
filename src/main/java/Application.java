@@ -48,7 +48,7 @@ public class Application {
                     parseExit();
                     break;
                 default:
-                    //todo parseNothing
+                    parseNothing(args);
                     break;
             }
         }
@@ -231,6 +231,12 @@ public class Application {
 
     private void parseExit() {
         this._RUNNING_ = false;
+    }
+
+    private void parseNothing(String[] args) {
+        if (!args[0].isEmpty()) {
+            printf("%s: command not found%n", args[0]);
+        }
     }
 
 }
