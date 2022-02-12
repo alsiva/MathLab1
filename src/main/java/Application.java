@@ -39,7 +39,7 @@ public class Application {
                     parseSolve(args);
                     break;
                 case "show":
-                    //todo parseShow
+                    parseShow(args);
                     break;
                 case "help":
                     //todo parseHelp
@@ -192,6 +192,39 @@ public class Application {
 
         } else {
             printf("solve: firstly enter a matrix%n");
+        }
+    }
+
+    private void parseShow(String[] args) {
+        if (args.length == 1) {
+            parseShowA();
+            parseShowM();
+        } else if (args.length > 2) {
+            //todo warning
+        } else if (args[1].equals("-a")) {
+            parseShowA();
+        } else if (args[1].equals("-m")) {
+            parseShowM();
+        } else {
+            //todo usage -a and -m
+        }
+    }
+
+    private void parseShowA() {
+        printf("accuracy=%.12f%n", accuracy);
+    }
+
+    private void parseShowM() {
+        if (elements != null) {
+            for (int i = 0; i < size; ++i) {
+                printf("[");
+                for (int j = 0; j < size - 1; ++j) {
+                    printf("%s, ", elements[i][j]);
+                }
+                printf("%s] * x_%s = %s%n", elements[i][size-1], i + 1, elements[i][size]);
+            }
+        } else {
+            printf("show: firstly enter a matrix%n");
         }
     }
 
