@@ -2,12 +2,9 @@ package edu.ifmo.math;
 
 public class SeidelAnswer {
 
-    private Matrix roots;
-
-    private Matrix errors;
-
-    private int iterations;
-
+    private final Matrix roots;
+    private final Matrix errors;
+    private final int iterations;
 
 
     public SeidelAnswer(Matrix roots, Matrix errors, int iterations) {

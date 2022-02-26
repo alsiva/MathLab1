@@ -8,23 +8,20 @@ public class LinearSystemSolver {
         this.accuracy = accuracy;
     }
 
-    public SeidelAnswer solve(Matrix linearSystem) {
-        Matrix coefficients = linearSystem.getMatrixCoefficients();
-        Matrix freeMembers = linearSystem.getMatrixFreeMembers();
-
-        return iterate(coefficients, freeMembers);
-    }
-
-    private SeidelAnswer iterate(Matrix coefficients, Matrix freeMembers) {
+    public SeidelAnswer solve(Matrix matrix) {
+        Matrix permutedMatrix = matrix.doRowPermutation();
+        Matrix coefficients = permutedMatrix.getMatrixCoefficients();
+        Matrix freeMembers = permutedMatrix.getMatrixFreeMembers();
         double[] diagonal = coefficients.getDiagonalArray();
 
-        Matrix prev, next = freeMembers.div(diagonal); // Нулевая итерация
-        int iters = 0;
+        Matrix prev;  // Нулевая итерация
+        Matrix next = freeMembers.div(diagonal);
+
+        int totalIterations = 0;
         do {
             prev = next.copy();
 
             for (int i = 0; i < next.getRowCount(); ++i) { //Пробегаемся по каждому иксу
-
                 double freeSum = freeMembers.get(i,0) / coefficients.get(i, i);
 
                 double keyPlusOneSum = 0;
@@ -37,17 +34,14 @@ public class LinearSystemSolver {
                     keySum += prev.get(j, 0) * coefficients.get(i,j) / coefficients.get(i,i);
                 }
 
-                next.write(i, 0, freeSum - keyPlusOneSum - keySum);
+                next.set(i, 0, freeSum - keyPlusOneSum - keySum);
             }
 
-            iters++;
+            totalIterations++;
         } while (next.minus(prev).getAbsMax() > Math.abs(accuracy)); // |X(k) - X(k-1)| > |accuracy|
 
         Matrix errors = next.minus(prev);
 
-        return new SeidelAnswer(next, errors, iters);
+        return new SeidelAnswer(next, errors, totalIterations);
     }
-
-
-
 }
