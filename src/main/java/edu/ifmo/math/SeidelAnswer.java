@@ -20,15 +20,14 @@ public class SeidelAnswer {
     public void showAnswer() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("+————+——————————————————————+——————————————————————+\n")
-                .append("│ №i │  root (x)            │  infelicity (delta)  │\n")
-                .append("+————+——————————————————————+——————————————————————+\n");
+        builder
+            .append("│ №  │  root (x)            │  infelicity (delta)  │\n")
+            .append("│——————————————————————————————————————————————————│\n");
 
         for (int i = 0; i < roots.getRowCount(); ++i) {
             builder.append(pattern(i + 1, roots.get(i, 0), errors.get(i, 0)));
         }
-        builder.append("+————+——————————————————————+——————————————————————+\n")
-                .append("> Iterations: ").append(iterations).append(" times.");
+        builder.append("\nTotal ").append(iterations).append(" iterations.");
 
         System.out.println(builder);
     }
