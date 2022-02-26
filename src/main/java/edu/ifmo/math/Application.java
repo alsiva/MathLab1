@@ -49,7 +49,10 @@ public class Application implements Callable<Integer> {
     }
 
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new Application()).execute(args);
+        int exitCode = new CommandLine(new Application())
+            .setExecutionExceptionHandler(new PrintExceptionMessageHandler())
+            .execute(args);
+
         System.exit(exitCode);
     }
 
