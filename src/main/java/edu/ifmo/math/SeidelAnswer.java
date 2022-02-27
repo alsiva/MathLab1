@@ -5,12 +5,14 @@ public class SeidelAnswer {
     private final Matrix roots;
     private final Matrix errors;
     private final int iterations;
+    private final double accuracy;
 
 
-    public SeidelAnswer(Matrix roots, Matrix errors, int iterations) {
+    public SeidelAnswer(Matrix roots, Matrix errors, int iterations, double accuracy) {
         this.roots = roots;
         this.errors = errors;
         this.iterations = iterations;
+        this.accuracy = accuracy;
     }
 
     private String pattern(double i, double roots, double errors) {
@@ -28,6 +30,7 @@ public class SeidelAnswer {
             builder.append(pattern(i + 1, roots.get(i, 0), errors.get(i, 0)));
         }
         builder.append("\nTotal ").append(iterations).append(" iterations.");
+        builder.append("\nAccuracy is ").append(accuracy);
 
         System.out.println(builder);
     }

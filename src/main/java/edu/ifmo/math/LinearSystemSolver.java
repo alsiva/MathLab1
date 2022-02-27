@@ -42,6 +42,6 @@ public class LinearSystemSolver {
 
         Matrix errors = next.minus(prev);
 
-        return new SeidelAnswer(next, errors, totalIterations);
+        return new SeidelAnswer(next, errors, totalIterations, accuracy);
     }
 }

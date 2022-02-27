@@ -9,14 +9,14 @@ import java.util.concurrent.Callable;
 
 public class Application implements Callable<Integer> {
     @CommandLine.Option(names = {"-a", "--accuracy"}, description = "solution accuracy")
-    double accuracy = 1E-5;
+    Double cmdAccuracy;
 
     @CommandLine.Option(names = {"-f", "--file"}, description = "file to read matrix from")
     String filename;
 
     @Override
     public Integer call() throws Exception {
-        System.out.println("Accuracy is " + accuracy);
+        double accuracy = getAccuracy();
 
         Matrix matrix = readMatrix();
 
@@ -27,6 +27,26 @@ public class Application implements Callable<Integer> {
         answer.showAnswer();
 
         return 0;
+    }
+
+    private static final double ACCURACY_DEFAULT_VALUE = 1E-5;
+    private double getAccuracy() throws IOException {
+        while (true) {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Enter accuracy (leave empty for default value of 1E-5)");
+
+            String accuracyLine = bufferedReader.readLine().trim();
+            if (accuracyLine.isBlank()) {
+                System.out.println("Setting accuracy to default value of " + ACCURACY_DEFAULT_VALUE);
+                return ACCURACY_DEFAULT_VALUE;
+            }
+
+            try {
+                return Double.parseDouble(accuracyLine);
+            } catch (NumberFormatException e) {
+                System.err.println("Failed to parse accuracy: " + e.getMessage());
+            }
+        }
     }
 
     private Matrix readMatrix() throws IOException {
